@@ -1,7 +1,17 @@
+const e = require('express');
 const app = require('./app');
-const config = require('./app/config');
+const config = require('./app/config/index');
+const Database = require('./app/utils/mongodb_utils');
 
-const port = config.app.port;
-app.listen(port, () => {
-        console.log(`Server is running on http://localhost:${port}`);
-});
+async function startServer() {
+        try {
+                await Database.connect(config.db.uri);
+                app.listen(config.app.port, () => {
+                        console.log(`Server is running on port ${config.app.port}`);
+                });
+        } catch (error) {
+                console.error('Error starting server: ', error);
+        }
+}
+
+startServer();

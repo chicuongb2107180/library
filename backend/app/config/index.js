@@ -1,9 +1,9 @@
 const config = {
         app: {
-                port: 3000
+                port: process.env.PORT || 3003
         },
         db: {
-                host: 'localhost',
+                uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/librarymanagement',
         }
 };
 module.exports = config;
