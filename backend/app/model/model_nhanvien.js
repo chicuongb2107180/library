@@ -18,7 +18,7 @@ const NhanVienSchema = new mongoose.Schema({
         },
         sodienthoai: {
                 type: String,
-                match: /^(03|05|07|08|09)\d{8}$/, // Ràng buộc số điện thoại Việt Nam hợp lệ
+                match: /^(03|05|07|08|09)\d{8}$/,
                 validate: {
                         validator: function (v) {
                                 return /^(03|05|07|08|09)\d{8}$/.test(v);

@@ -59,18 +59,6 @@ exports.getById = async (req, res) => {
         }
 };
 
-// Tạo độc giả mới
-// exports.create = async (req, res) => {
-//         try {
-//                 const newMsdg = await generateMsdg();
-//                 const docgia = new DocGia({ ...req.body, msdg: newMsdg });
-//                 const newDocGia = await docgia.save();
-//                 res.status(201).json(newDocGia);
-//         } catch (error) {
-//                 res.status(400).json({ message: error.message });
-//         }
-// };
-
 // Cập nhật độc giả
 exports.update = async (req, res) => {
         try {

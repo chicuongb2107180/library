@@ -28,9 +28,9 @@ const TheoDoiMuonSachSchema = new mongoose.Schema({
         trangthai: {
                 type: String,
                 enum: ['dadat', 'damuon', 'datra'],
-                default: 'damuon', // Mặc định là 'damuon' khi mới tạo
+                default: 'dadat', // Mặc định là 'damuon' khi mới tạo
         }
-}, { _id: false });
+});
 
 // Thiết lập khóa chính tổng hợp cho model
 TheoDoiMuonSachSchema.index({ msdg: 1, masach: 1, ngaymuon: 1 }, { unique: true });
