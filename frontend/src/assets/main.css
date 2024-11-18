@@ -1,35 +1,86 @@
-@import './base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+
+table td, table th {
+  font-size: 0.75rem;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+
+.action-btn {
+  transition: all 0.3s ease;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.action-btn:hover {
+  transform: scale(1.1);
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.action-btn i {
+  margin-right: 5px;
 }
+
+
+.btn-warning:hover {
+  background-color: #f0ad4e;
+}
+
+.btn-danger:hover {
+  background-color: #d9534f;
+}
+.text-danger {
+  font-size: 0.75rem;
+  margin-top: 5px;
+}
+.form-card {
+  max-width: 400px; 
+  width: 100%;
+}
+
+.form-control-sm {
+  font-size: 0.875rem; 
+}
+
+.form-label {
+  font-size: 0.875rem; 
+}
+
+
+.custom-btn {
+  font-size: 0.875rem; 
+  padding: 8px 16px; 
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.custom-btn:hover {
+  background-color: #ff9800; 
+  transform: scale(1.05); 
+}
+
+.custom-btn:active {
+  background-color: #f57c00;
+}
+
+
+.btn-success {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.btn-success:hover {
+  background-color: #45a049;
+  border-color: #45a049;
+}
+.notification.success {
+  background-color: #4caf50;
+  color: white;
+}
+
+.notification.error {
+  background-color: #f44336;
+  color: white;
+}
+
+.notification.info {
+  background-color: #2196f3;
+  color: white;
+}
+
+

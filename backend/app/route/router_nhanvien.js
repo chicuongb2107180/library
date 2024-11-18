@@ -8,7 +8,7 @@ router.route('/')
         .post(nhanviens.create)
 
 
-router.route('/:msnv')
+router.route('/:id')
         .get(nhanviens.findOne)
         .put(nhanviens.update)
         .delete(nhanviens.delete);

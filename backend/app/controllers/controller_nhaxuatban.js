@@ -1,17 +1,17 @@
 const NhaXuatBan = require('../model/model_nhaxuatban');
 
-// Tự động sinh mã nhà xuất bản mới
+
 const generateManxb = async () => {
         const latestNXB = await NhaXuatBan.findOne().sort({ manxb: -1 });
-        let newId = "NXB0001"; // Khởi tạo mã số đầu tiên nếu chưa có mã nào
+        let newId = "NXB0001"; 
         if (latestNXB && latestNXB.manxb) {
-                const currentIdNum = parseInt(latestNXB.manxb.slice(3), 10); // Lấy phần số
-                newId = `NXB${String(currentIdNum + 1).padStart(4, "0")}`; // Tăng dần và nối tiền tố "NXB"
+                const currentIdNum = parseInt(latestNXB.manxb.slice(3), 10);
+                newId = `NXB${String(currentIdNum + 1).padStart(4, "0")}`; 
         }
         return newId;
 };
 
-// Lấy tất cả nhà xuất bản
+
 exports.getAll = async (req, res) => {
         try {
                 const nxbs = await NhaXuatBan.find();
@@ -21,7 +21,7 @@ exports.getAll = async (req, res) => {
         }
 };
 
-// Lấy nhà xuất bản theo ID
+
 exports.getById = async (req, res) => {
         try {
                 const nxb = await NhaXuatBan.findById(req.params.id);
@@ -32,11 +32,11 @@ exports.getById = async (req, res) => {
         }
 };
 
-// Tạo nhà xuất bản mới
+
 exports.create = async (req, res) => {
         try {
-                const newManxb = await generateManxb(); // Gọi hàm để sinh mã nhà xuất bản mới
-                const nxb = new NhaXuatBan({ ...req.body, manxb: newManxb }); // Tạo nhà xuất bản với mã sinh tự động
+                const newManxb = await generateManxb(); 
+                const nxb = new NhaXuatBan({ ...req.body, manxb: newManxb }); 
                 const newNXB = await nxb.save();
                 res.status(201).json(newNXB);
         } catch (error) {
@@ -44,7 +44,7 @@ exports.create = async (req, res) => {
         }
 };
 
-// Cập nhật nhà xuất bản
+
 exports.update = async (req, res) => {
         try {
                 const updatedNXB = await NhaXuatBan.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -55,7 +55,7 @@ exports.update = async (req, res) => {
         }
 };
 
-// Xóa nhà xuất bản
+
 exports.delete = async (req, res) => {
         try {
                 const deletedNXB = await NhaXuatBan.findByIdAndDelete(req.params.id);

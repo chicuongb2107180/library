@@ -1,13 +1,28 @@
-<script>
-export default {
-}
-</script>
 <template>
-<h1>Hello, Vue.js!</h1>
+  <div id="app" class="d-flex flex-column min-vh-100">
+  
+    <Header />
+
+    <Navigation />
+
+    <main class="container my-4 flex-grow-1">
+      <router-view />
+    </main>
+
+    <Footer />
+  </div>
 </template>
-<style>
-.page {
-max-width: 400px;
-margin: auto;
+
+<script setup>
+import Header from './components/Header.vue';
+import Navigation from './components/Navigation.vue';
+import Footer from './components/Footer.vue';
+</script>
+
+<style scoped>
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 </style>

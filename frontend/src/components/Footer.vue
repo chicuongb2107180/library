@@ -1,0 +1,5 @@
+<template>
+  <footer class="bg-dark text-white text-center py-3 mt-4">
+    © Bản quyền thuộc về Thư viện Cộng đồng
+  </footer>
+</template>

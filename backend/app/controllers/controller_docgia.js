@@ -49,7 +49,7 @@ exports.create = async (req, res) => {
 // Lấy độc giả theo ID
 exports.getById = async (req, res) => {
         try {
-                const docgia = await DocGia.findById(req.params.msdg);
+                const docgia = await DocGia.findById(req.params.id);
                 if (!docgia) {
                         return res.status(404).json({ message: 'DocGia not found' });
                 }
@@ -62,7 +62,7 @@ exports.getById = async (req, res) => {
 // Cập nhật độc giả
 exports.update = async (req, res) => {
         try {
-                const updatedDocGia = await DocGia.findByIdAndUpdate(req.params.msdg, req.body, { new: true });
+                const updatedDocGia = await DocGia.findByIdAndUpdate(req.params.id, req.body, { new: true });
                 if (!updatedDocGia) {
                         return res.status(404).json({ message: 'DocGia not found' });
                 }
@@ -73,14 +73,24 @@ exports.update = async (req, res) => {
 };
 
 // Xóa độc giả
+// Xóa độc giả và tài khoản liên quan
 exports.delete = async (req, res) => {
         try {
-                const deletedDocGia = await DocGia.findByIdAndDelete(req.params.msdg);
+                // Tìm độc giả cần xóa
+                const deletedDocGia = await DocGia.findByIdAndDelete(req.params.id);
                 if (!deletedDocGia) {
                         return res.status(404).json({ message: 'DocGia not found' });
                 }
-                res.status(200).json({ message: 'DocGia deleted' });
+
+                // Tìm và xóa tài khoản dựa trên username (msdg)
+                const deletedAccount = await Account.findOneAndDelete({ username: deletedDocGia.msdg });
+                if (!deletedAccount) {
+                        return res.status(404).json({ message: 'Account not found for this DocGia' });
+                }
+
+                res.status(200).json({ message: 'DocGia and related Account deleted successfully' });
         } catch (error) {
                 res.status(500).json({ message: error.message });
         }
 };
+

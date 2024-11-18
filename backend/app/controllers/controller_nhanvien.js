@@ -14,24 +14,13 @@ const generateMsnv = async () => {
 
 exports.create = async (req, res) => {
         try {
-                const newMsnv = await generateMsnv();
-                const nhanvien = new NhanVien({ ...req.body, msnv: newMsnv });
-                const newNhanVien = await nhanvien.save();
-                res.status(201).json(newNhanVien);
-        } catch (error) {
-                res.status(400).json({ message: error.message });
-        }
-};
-
-exports.create = async (req, res) => {
-        try {
                 const { hoten, chucvu, diachi, sodienthoai } = req.body;
                 const newMsnv = await generateMsnv();
                 const username = newMsnv;
                 const password = "password123"; // Mật khẩu mặc định
 
                 // Lưu thông tin nhân viên vào database
-                const newNhanVien = new NhanVien({ msnv: newMsnv, hoten,chucvu, diachi, sodienthoai });
+                const newNhanVien = new NhanVien({ msnv: newMsnv, hoten, chucvu, diachi, sodienthoai });
                 await newNhanVien.save();
 
                 // Hash mật khẩu và lưu thông tin tài khoản vào database
@@ -39,8 +28,8 @@ exports.create = async (req, res) => {
                 const newAccount = new Account({
                         username,
                         password: hashedPassword,
-                        role: "nhanvien",
-                        needsPasswordChange: true  // Đánh dấu cần thay đổi mật khẩu khi đăng nhập lần đầu
+                        role: req.body.chucvu === "admin" ? "admin" : "nhanvien",
+                        needsPasswordChange: true
                 });
                 await newAccount.save();
 
@@ -62,7 +51,7 @@ exports.getAll = async (req, res) => {
 
 exports.findOne = async (req, res) => {
         try {
-                const nhanvien = await NhanVien.findOne({ msnv: req.params.msnv });
+                const nhanvien = await NhanVien.findOne({ _id: req.params.id });
                 if (!nhanvien) {
                         return res.status(404).send({ message: "Employee not found" });
                 }
@@ -77,10 +66,17 @@ exports.findOne = async (req, res) => {
 exports.update = async (req, res) => {
         try {
                 const updatedNhanVien = await NhanVien.findOneAndUpdate(
-                        { msnv: req.params.msnv },
+                        { _id: req.params.id },
                         req.body,
                         { new: true }
                 );
+                if (req.body.chucvu) {
+                        const updatedAccount = await Account.findOneAndUpdate(
+                                { username: updatedNhanVien.msnv },
+                                { role: req.body.chucvu === "admin" ? "admin" : "nhanvien" },
+                                { new: true }
+                        );
+                }
                 if (!updatedNhanVien) {
                         return res.status(404).send({ message: "Employee not found" });
                 }
@@ -94,10 +90,11 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
         try {
-                const deletedNhanVien = await NhanVien.findOneAndDelete({ msnv: req.params.msnv });
+                const deletedNhanVien = await NhanVien.findOneAndDelete({ _id: req.params.id });
                 if (!deletedNhanVien) {
                         return res.status(404).send({ message: "Employee not found" });
                 }
+                await Account.findOneAndDelete({ username: deletedNhanVien.msnv });
                 res.send({ message: "Employee deleted successfully" });
         } catch (error) {
                 res.status(500).send({ message: error.message });
