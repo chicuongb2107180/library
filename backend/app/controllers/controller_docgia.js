@@ -6,13 +6,13 @@ const generateMsdg = async () => {
         const latestDocGia = await DocGia.findOne().sort({ msdg: -1 });
         let newId = "D0000001"; 
         if (latestDocGia && latestDocGia.msdg) {
-                const currentIdNum = parseInt(latestDocGia.msdg.slice(1), 10); // Lấy phần số
-                newId = `D${String(currentIdNum + 1).padStart(7, "0")}`; // Tăng dần và nối tiền tố "D"
+                const currentIdNum = parseInt(latestDocGia.msdg.slice(1), 10); 
+                newId = `D${String(currentIdNum + 1).padStart(7, "0")}`;
         }
         return newId;
 };
 
-// Lấy tất cả các độc giả
+
 exports.getAll = async (req, res) => {
         try {
                 const docgia = await DocGia.find();
@@ -31,10 +31,9 @@ exports.create = async (req, res) => {
 
                 const newDocGia = new DocGia({ msdg: newMsdg, holot, ten, ngaysinh, diachi, sodienthoai });
                 await newDocGia.save();
-                const hashedPassword = await bcrypt.hash(password, 10);
                 const newAccount = new Account({
                         username,
-                        password: hashedPassword,
+                        password,
                         role: "docgia",
                         needsPasswordChange: true, 
                 });
@@ -46,7 +45,7 @@ exports.create = async (req, res) => {
         }
 };
 
-// Lấy độc giả theo ID
+
 exports.getById = async (req, res) => {
         try {
                 const docgia = await DocGia.findById(req.params.id);
@@ -59,7 +58,6 @@ exports.getById = async (req, res) => {
         }
 };
 
-// Cập nhật độc giả
 exports.update = async (req, res) => {
         try {
                 const updatedDocGia = await DocGia.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -72,8 +70,7 @@ exports.update = async (req, res) => {
         }
 };
 
-// Xóa độc giả
-// Xóa độc giả và tài khoản liên quan
+
 exports.delete = async (req, res) => {
         try {
                 // Tìm độc giả cần xóa
@@ -94,3 +91,14 @@ exports.delete = async (req, res) => {
         }
 };
 
+exports.getByMSDG = async (req, res) => {
+        try {
+                const docgia = await DocGia.findOne({ msdg: req.params.msdg });
+                if (!docgia) {
+                        return res.status(404).json({ message: 'DocGia not found' });
+                }
+                res.status(200).json(docgia);
+        } catch (error) {
+                res.status(500).json({ message: error.message });
+        }
+};

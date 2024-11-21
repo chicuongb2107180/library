@@ -12,4 +12,6 @@ router.route('/:id')
         .put(docgia.update)
         .delete(docgia.delete);
 
+router.route('/msdg/:msdg')
+        .get(docgia.getByMSDG);
 module.exports = router;

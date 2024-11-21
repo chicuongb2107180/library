@@ -69,12 +69,12 @@
           </div>
         </div>
 
-        <!-- Nút thêm mới hoặc cập nhật -->
+      
         <button type="submit" class="btn btn-success custom-btn">
           {{ isEditMode ? "Cập nhật" : "Thêm Mới" }}
         </button>
 
-        <!-- Nút hủy khi chỉnh sửa -->
+      
         <button
           type="button"
           class="btn btn-secondary ms-2 custom-btn"

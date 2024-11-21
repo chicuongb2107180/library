@@ -13,3 +13,4 @@ router.route('/:id')
         .delete(nxbController.delete);
 
 module.exports = router;
+        

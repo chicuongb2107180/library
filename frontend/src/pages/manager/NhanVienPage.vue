@@ -24,10 +24,10 @@ import NhanVienForm from "../../components/nhanvien/NhanVienForm.vue";
 import NhanVienList from "../../components/nhanvien/NhanVienList.vue";
 import nhanvienService from "../../services/NhanVienService";
 
-// Dữ liệu danh sách nhân viên
+
 const nhanviens = ref([]);
 
-// Dữ liệu nhân viên đang chỉnh sửa hoặc thêm mới
+
 const currentNhanVien = ref({
   msnv: "",
   hoten: "",
@@ -44,7 +44,7 @@ async function fetchNhanViens() {
 
 async function saveNhanVien(nhanvien) {
   if (isEditMode.value) {
-    // Cập nhật nhân viên
+  
     await nhanvienService.updateNhanVien(nhanvien._id, nhanvien);
   } else {
     const newNhanVien = await nhanvienService.createNhanVien(nhanvien);

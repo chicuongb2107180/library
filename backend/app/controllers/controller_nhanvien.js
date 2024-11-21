@@ -19,15 +19,13 @@ exports.create = async (req, res) => {
                 const username = newMsnv;
                 const password = "password123"; // Mật khẩu mặc định
 
-                // Lưu thông tin nhân viên vào database
+                // Lưu thông tin nhân viên vào databas
                 const newNhanVien = new NhanVien({ msnv: newMsnv, hoten, chucvu, diachi, sodienthoai });
                 await newNhanVien.save();
 
-                // Hash mật khẩu và lưu thông tin tài khoản vào database
-                const hashedPassword = await bcrypt.hash(password, 10);
                 const newAccount = new Account({
                         username,
-                        password: hashedPassword,
+                        password: password,
                         role: req.body.chucvu === "admin" ? "admin" : "nhanvien",
                         needsPasswordChange: true
                 });

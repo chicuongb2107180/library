@@ -5,18 +5,14 @@ const router = express.Router();
 
 router.route('/')
         .get(tdmsController.getAll)
-        .post(tdmsController.reserveBook);
+        .post(tdmsController.create);
 
-router.route('/:msdg/:masach/:ngaymuon')
+router.route('/:id')
         .get(tdmsController.getByKey)
         .put(tdmsController.update)
         .delete(tdmsController.delete);
-router.route('/:msdg/:masach/:ngaymuon/borrow')
-        .put(tdmsController.borrowBook);
 
-router.route('/:msdg/:masach/:ngaymuon/borrow')
-        .put(tdmsController.borrowBook);
+router.route('/reverse/')
+        .get(tdmsController.reserveBook);
 
-router.route('/:msdg/:masach/:ngaymuon/return')
-        .put(tdmsController.returnBook);
 module.exports = router;

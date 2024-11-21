@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- Tìm kiếm và Lọc Độc Giả -->
+    
     <div class="input-group mb-3">
       <input
         v-model="searchQuery"
@@ -11,7 +11,7 @@
       <button class="btn btn-primary" @click="filterDocGias">Lọc</button>
     </div>
 
-    <!-- Bảng Thông Tin Độc Giả -->
+  
     <table class="table table-striped table-hover">
       <thead class="table-dark">
         <tr>

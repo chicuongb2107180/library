@@ -24,6 +24,10 @@ class docgiaService {
   async deleteDocGia(id) {
     return (await this.api.delete(`/${id}`)).data;
   }
+
+  async getDocGiaByMaDocGia(maDocGia) {
+    return (await this.api.get(`/msdg/${maDocGia}`)).data;
+  }
 }
 
 export default new docgiaService();

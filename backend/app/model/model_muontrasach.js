@@ -18,6 +18,9 @@ const TheoDoiMuonSachSchema = new mongoose.Schema({
         },
         ngaytra: {
                 type: Date,
+                default: function () {
+                        return new Date(+this.ngaymuon + 7 * 24 * 60 * 60 * 1000);
+                },
                 validate: {
                         validator: function (value) {
                                 return value >= this.ngaymuon;
@@ -28,7 +31,7 @@ const TheoDoiMuonSachSchema = new mongoose.Schema({
         trangthai: {
                 type: String,
                 enum: ['dadat', 'damuon', 'datra'],
-                default: 'dadat', // Mặc định là 'damuon' khi mới tạo
+                default: 'dadat', 
         }
 });
 

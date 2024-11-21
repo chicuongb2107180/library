@@ -39,7 +39,8 @@ function resetForm() {
 
 async function saveDocGia(docgia) {
   if (isEditMode.value) {
-    await docgiaService.updateDocGia(docgia.id, docgia);
+    console.log("docgia", docgia);
+    await docgiaService.updateDocGia(docgia._id,docgia);
   } else {
     const newDocGia = await docgiaService.createDocGia(docgia);
     docgias.value.push(newDocGia);
@@ -49,7 +50,9 @@ async function saveDocGia(docgia) {
 }
 
 function editDocGia(docgia) {
+  docgia.ngaysinh = new Date(docgia.ngaysinh).toISOString().split("T")[0];
   currentDocGia.value = docgia;
+  console.log("currentDocGia", currentDocGia.value);
   isEditMode.value = true;
 }
 

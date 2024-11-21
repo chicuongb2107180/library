@@ -18,7 +18,7 @@ app.use("/api/library/nhanvien", nhanvien_Router);
 app.use("/api/library/docgia", docgia_Router);
 app.use("/api/library/auth", account_Router);
 app.use("/api/library/nxbs", nxb_Router);
-app.use("/api/library/tdms", muontra_Router);
+app.use("/api/library/mts", muontra_Router);
 app.use("/api/library/sach", sach_Router);
 app.use((req, res, next) => {
         return next(new ApiError(404, 'Not found'));
